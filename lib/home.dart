@@ -24,100 +24,102 @@ class _HomeState extends State<Home> {
                   alignment: Alignment.centerRight,
                   fit: BoxFit.cover)),
         ),
-        Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 70,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Welcome Stephen",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Mulish',
-                        fontSize: 24,
-                        fontWeight: FontWeight.w300),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 350,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Book a ride",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 24,
-                        fontFamily: 'Mulish'),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children:  [
-                  TextButton(
-                    child: const Text(
-                      "Trip",
-                      style: TextStyle(color: Colors.white),
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 70,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Welcome Stephen",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Mulish',
+                          fontSize: 24,
+                          fontWeight: FontWeight.w300),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 350,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Book a ride",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 24,
+                          fontFamily: 'Mulish'),
                     ),
-                    style: TextButton.styleFrom(
-                        backgroundColor: Colors.white24,
-                        padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
-                        textStyle:
-                        const TextStyle(fontSize: 16)),
-                    onPressed: () {
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 1)));
-                    },
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  TextButton(
-                    child: const Text(
-                      "Cruise",
-                      style: TextStyle(color: Colors.white),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children:  [
+                    TextButton(
+                      child: const Text(
+                        "Trip",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.white24,
+                          padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
+                          textStyle:
+                          const TextStyle(fontSize: 16)),
+                      onPressed: () {
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 1)));
+                      },
                     ),
-                    style: TextButton.styleFrom(
-                        backgroundColor: Colors.white24,
-                        padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
-                        textStyle:
-                        const TextStyle(fontSize: 16)),
-                    onPressed: () {
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    TextButton(
+                      child: const Text(
+                        "Cruise",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.white24,
+                          padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
+                          textStyle:
+                          const TextStyle(fontSize: 16)),
+                      onPressed: () {
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 2)));
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 70,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      color: Colors.white54,
+                      onPressed: (){
                       Navigator.push(
-                          context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 2)));
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 70,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    color: Colors.white54,
-                    onPressed: (){
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 3)));
-                  }, icon: SvgPicture.asset(
-                    "assets/images/settings-outline.svg", fit: BoxFit.fitWidth,
-                width: 20,
-                  ),)
-                ],
-              )
-            ],
+                          context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 3)));
+                    }, icon: SvgPicture.asset(
+                      "assets/images/settings-outline-white.svg", fit: BoxFit.fitWidth,
+                  width: 20,
+                    ),)
+                  ],
+                )
+              ],
+            ),
           ),
         )
       ]),

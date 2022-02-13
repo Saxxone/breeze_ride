@@ -331,24 +331,22 @@ class _TripState extends State<Trip> {
                             ),
                             Stack(
                               children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: const [
-                                      SizedBox(
-                                        width: 100,
-                                        height: 40,
-                                        child: Center(
-                                          child: Divider(
-                                            thickness: 1,
-                                            color: Colors.black12,
-                                          ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: const [
+                                    SizedBox(
+                                      width: 100,
+                                      height: 40,
+                                      child: Center(
+                                        child: Divider(
+                                          thickness: 1,
+                                          color: Colors.black12,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   width: 100,
@@ -495,24 +493,22 @@ class _TripState extends State<Trip> {
                             ),
                             Stack(
                               children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: const [
-                                      SizedBox(
-                                        width: 100,
-                                        height: 40,
-                                        child: Center(
-                                          child: Divider(
-                                            thickness: 1,
-                                            color: Colors.black12,
-                                          ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: const [
+                                    SizedBox(
+                                      width: 100,
+                                      height: 40,
+                                      child: Center(
+                                        child: Divider(
+                                          thickness: 1,
+                                          color: Colors.black12,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   width: 100,
@@ -659,24 +655,22 @@ class _TripState extends State<Trip> {
                             ),
                             Stack(
                               children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: const [
-                                      SizedBox(
-                                        width: 100,
-                                        height: 40,
-                                        child: Center(
-                                          child: Divider(
-                                            thickness: 1,
-                                            color: Colors.black12,
-                                          ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: const [
+                                    SizedBox(
+                                      width: 100,
+                                      height: 40,
+                                      child: Center(
+                                        child: Divider(
+                                          thickness: 1,
+                                          color: Colors.black12,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   width: 100,
@@ -823,24 +817,22 @@ class _TripState extends State<Trip> {
                             ),
                             Stack(
                               children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: const [
-                                      SizedBox(
-                                        width: 100,
-                                        height: 40,
-                                        child: Center(
-                                          child: Divider(
-                                            thickness: 1,
-                                            color: Colors.black12,
-                                          ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: const [
+                                    SizedBox(
+                                      width: 100,
+                                      height: 40,
+                                      child: Center(
+                                        child: Divider(
+                                          thickness: 1,
+                                          color: Colors.black12,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   width: 100,
