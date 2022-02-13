@@ -1,46 +1,53 @@
 import 'package:breeze_ride/settings.dart';
+import 'package:breeze_ride/ticket.dart';
+import 'package:breeze_ride/cruise.dart';
 import 'package:breeze_ride/trip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'home.dart';
 
-class Tour extends StatefulWidget {
-  const Tour({Key? key}) : super(key: key);
+class Interstitial extends StatefulWidget {
+  final int index;
+
+  const Interstitial({Key? key, required this.index}) : super(key: key);
 
   @override
-  _TourState createState() => _TourState();
+  _InterstitialState createState() => _InterstitialState();
 }
 
-class _TourState extends State<Tour> {
-
-  int selectedIndex = 0;
-
+class _InterstitialState extends State<Interstitial> {
   @override
   Widget build(BuildContext context) {
+    int selectedIndex = widget.index;
     List<Widget> widgetOptions = <Widget>[
       const Home(),
       const Trip(),
-      const Tour(),
+      const Cruise(),
       const Settings(),
+      const Ticket(),
     ];
 
     void onTabTapped(index) {
       setState(() {
         selectedIndex = index;
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => widgetOptions.elementAt(selectedIndex)));
+        if (selectedIndex == 0) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      widgetOptions.elementAt(selectedIndex)));
+        }
       });
     }
 
     return Scaffold(
-      body: Text("Ticket"),
+      body: widgetOptions.elementAt(selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
           selectedItemColor: Colors.tealAccent,
           showSelectedLabels: false,
+          backgroundColor: Colors.black,
           showUnselectedLabels: false,
           onTap: onTabTapped,
           type: BottomNavigationBarType.shifting,
@@ -54,22 +61,21 @@ class _TourState extends State<Tour> {
                 label: 'Home',
                 tooltip: 'Home'),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/images/boat-outline.svg",
-                fit: BoxFit.fitWidth,
-                width: 20,
-              ),
-              label: 'Trip',
-              tooltip: 'Trip',
-            ),
+                icon: SvgPicture.asset(
+                  "assets/images/boat-outline.svg",
+                  fit: BoxFit.fitWidth,
+                  width: 20,
+                ),
+                label: 'Cruise',
+                tooltip: 'Cruise'),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   "assets/images/planet-outline.svg",
                   fit: BoxFit.fitWidth,
                   width: 20,
                 ),
-                label: 'Tour',
-                tooltip: 'Tour'),
+                label: 'Cruise',
+                tooltip: 'Cruise'),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "assets/images/settings-outline.svg",

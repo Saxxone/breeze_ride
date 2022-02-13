@@ -1,6 +1,4 @@
-import 'package:breeze_ride/settings.dart';
-import 'package:breeze_ride/tour.dart';
-import 'package:breeze_ride/trip.dart';
+import 'package:breeze_ride/interstitial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -27,7 +25,7 @@ class _HomeState extends State<Home> {
                   fit: BoxFit.cover)),
         ),
         Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             children: [
               const SizedBox(
@@ -37,7 +35,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: const [
                   Text(
-                    "Welcome User",
+                    "Welcome Stephen",
                     style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Mulish',
@@ -74,11 +72,12 @@ class _HomeState extends State<Home> {
                     ),
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.white24,
+                        padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
                         textStyle:
                         const TextStyle(fontSize: 16)),
                     onPressed: () {
                       Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => const Trip()));
+                          context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 1)));
                     },
                   ),
                   const SizedBox(
@@ -86,16 +85,17 @@ class _HomeState extends State<Home> {
                   ),
                   TextButton(
                     child: const Text(
-                      "Tour",
+                      "Cruise",
                       style: TextStyle(color: Colors.white),
                     ),
                     style: TextButton.styleFrom(
                         backgroundColor: Colors.white24,
+                        padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
                         textStyle:
                         const TextStyle(fontSize: 16)),
                     onPressed: () {
                       Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => const Tour()));
+                          context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 2)));
                     },
                   ),
                 ],
@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
                     color: Colors.white54,
                     onPressed: (){
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => const Settings()));
+                        context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 3)));
                   }, icon: SvgPicture.asset(
                     "assets/images/settings-outline.svg", fit: BoxFit.fitWidth,
                 width: 20,

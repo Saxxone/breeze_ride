@@ -1,4 +1,4 @@
-import 'package:breeze_ride/ticket.dart';
+import 'package:breeze_ride/interstitial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -10,8 +10,7 @@ class Trip extends StatefulWidget {
 }
 
 class _TripState extends State<Trip> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final TextEditingController startController = TextEditingController();
+ final TextEditingController startController = TextEditingController();
   final TextEditingController destinationController = TextEditingController();
 
   @override
@@ -27,15 +26,17 @@ class _TripState extends State<Trip> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          label: Text('Start point'),
-          prefixIconConstraints: BoxConstraints(maxWidth: 20, maxHeight: 20),
-          prefixIcon: SvgPicture.asset(
-            "assets/images/search-outline.svg",
-            fit: BoxFit.fitWidth,
-            width: 20,
+          isCollapsed: true,
+          prefixIcon: IconButton(
+            icon: SvgPicture.asset(
+              "assets/images/search-outline.svg",
+              fit: BoxFit.fitWidth,
+              width: 20,
+            ),
+            onPressed: () {},
           ),
-          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Start point",
+          contentPadding: const EdgeInsets.fromLTRB(14, 15, 20, 15),
+          hintText: "From",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(4))),
     );
     final destinationField = TextFormField(
@@ -49,102 +50,854 @@ class _TripState extends State<Trip> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIconConstraints: BoxConstraints(maxWidth: 20, maxHeight: 20),
-          prefixIcon: SvgPicture.asset(
-            "assets/images/search-outline.svg",
-            fit: BoxFit.fitHeight,
-            width: 20,
+          isCollapsed: true,
+          prefixIcon: IconButton(
+            icon: SvgPicture.asset(
+              "assets/images/search-outline.svg",
+              fit: BoxFit.fitWidth,
+              width: 20,
+            ),
+            onPressed: () {},
           ),
-          label: Text('Destination'),
-          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: const EdgeInsets.fromLTRB(14, 15, 20, 15),
           hintText: "Destination",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(4))),
     );
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () {
-            /* Write listener code here */
-          },
-          child: IconButton(
-            icon: SvgPicture.asset(
-              "assets/images/menu-outline.svg",
-              fit: BoxFit.fitWidth,
-              width: 20,
-            ),
-            onPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
-            },
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-      drawer: Drawer(
-          child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          ListTile(
-            title: const Text('Your Profile'),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ) // Populate the Drawer in the next step.
-          ),
-      body: Column(
+        body: SingleChildScrollView(
+      child: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 15,
+            color: Colors.teal,
+            height: 300,
+            width: MediaQuery.of(context).size.width,
+          ),
+          Column(
+            children: [
+              const SizedBox(
+                height: 50,
+              ),
+              const Text(
+                "Book Trip",
+                style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: 20),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(20, 20, 20, 3),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    startField,
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    destinationField,
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border:
+                                  Border.all(color: Colors.black12, width: 1),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "Departure",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.black45),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "09:00 am",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border:
+                                  Border.all(color: Colors.black12, width: 1),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "Arrival",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.black45),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "11:00 am",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Material(
+                      elevation: 0,
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.black87,
+                      textStyle: const TextStyle(
+                        fontFamily: 'Mulish',
+                      ),
+                      child: MaterialButton(
+                        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        minWidth: MediaQuery.of(context).size.width,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Interstitial(
+                                        index: 4,
+                                      )));
+                        },
+                        child: const Text(
+                          "Book",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              fontFamily: 'Mulish'),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                startField,
-                SizedBox(
-                  height: 20,
-                ),
-                destinationField,
-                SizedBox(
-                  height: 40,
-                ),
-                Material(
-                  elevation: 0,
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.teal,
-                  textStyle: TextStyle(
-                    fontFamily: 'Mulish',
-                  ),
-                  child: MaterialButton(
-                    padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                    minWidth: MediaQuery.of(context).size.width,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Ticket()));
-                    },
-                    child: const Text(
-                      "Go",
-                      textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 15, bottom: 2, top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "Upcoming Rides",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          fontFamily: 'Mulish'),
+                        fontWeight: FontWeight.w900,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 10, 20, 3),
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          topLeft: Radius.circular(30),
+                        )),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.cyan[50],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 14,
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        "assets/images/calendar-outline.svg",
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('14th Feb. 2022')
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.cyan[50],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 14,
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        "assets/images/time-outline.svg",
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('1hr 30min')
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          height: 60,
+                          thickness: 1,
+                          color: Colors.black12,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "CMS",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "CMS Waterside",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black26,
+                                      fontSize: 10),
+                                )
+                              ],
+                            ),
+                            Stack(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: const [
+                                      SizedBox(
+                                        width: 100,
+                                        height: 40,
+                                        child: Center(
+                                          child: Divider(
+                                            thickness: 1,
+                                            color: Colors.black12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.teal),
+                                        child: Center(
+                                          child: Image.asset(
+                                            "assets/images/motor-powered-boat.png",
+                                            width: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "AJAH",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "Ajah jetty",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black26,
+                                      fontSize: 10),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
-          ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 20, 20, 3),
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          topLeft: Radius.circular(30),
+                        )),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.cyan[50],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 14,
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        "assets/images/calendar-outline.svg",
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('14th Feb. 2022')
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.cyan[50],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 14,
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        "assets/images/time-outline.svg",
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('1hr 30min')
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          height: 60,
+                          thickness: 1,
+                          color: Colors.black12,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "CMS",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "CMS Waterside",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black26,
+                                      fontSize: 10),
+                                )
+                              ],
+                            ),
+                            Stack(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: const [
+                                      SizedBox(
+                                        width: 100,
+                                        height: 40,
+                                        child: Center(
+                                          child: Divider(
+                                            thickness: 1,
+                                            color: Colors.black12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.teal),
+                                        child: Center(
+                                          child: Image.asset(
+                                            "assets/images/motor-powered-boat.png",
+                                            width: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "AJAH",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "Ajah jetty",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black26,
+                                      fontSize: 10),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 20, 20, 3),
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          topLeft: Radius.circular(30),
+                        )),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.cyan[50],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 14,
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        "assets/images/calendar-outline.svg",
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('14th Feb. 2022')
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.cyan[50],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 14,
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        "assets/images/time-outline.svg",
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('1hr 30min')
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          height: 60,
+                          thickness: 1,
+                          color: Colors.black12,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "CMS",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "CMS Waterside",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black26,
+                                      fontSize: 10),
+                                )
+                              ],
+                            ),
+                            Stack(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: const [
+                                      SizedBox(
+                                        width: 100,
+                                        height: 40,
+                                        child: Center(
+                                          child: Divider(
+                                            thickness: 1,
+                                            color: Colors.black12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.teal),
+                                        child: Center(
+                                          child: Image.asset(
+                                            "assets/images/motor-powered-boat.png",
+                                            width: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "AJAH",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "Ajah jetty",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black26,
+                                      fontSize: 10),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 20, 20, 3),
+                    padding: const EdgeInsets.all(20),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:  BorderRadius.only(
+                          topRight:  Radius.circular(30),
+                          topLeft:  Radius.circular(30),
+                        )),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.cyan[50],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 14,
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        "assets/images/calendar-outline.svg",
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('14th Feb. 2022')
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.cyan[50],
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 14,
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        "assets/images/time-outline.svg",
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('1hr 30min')
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          height: 60,
+                          thickness: 1,
+                          color: Colors.black12,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "CMS",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "CMS Waterside",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black26,
+                                      fontSize: 10),
+                                )
+                              ],
+                            ),
+                            Stack(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: const [
+                                      SizedBox(
+                                        width: 100,
+                                        height: 40,
+                                        child: Center(
+                                          child: Divider(
+                                            thickness: 1,
+                                            color: Colors.black12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.teal),
+                                        child: Center(
+                                          child: Image.asset(
+                                            "assets/images/motor-powered-boat.png",
+                                            width: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "AJAH",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "Ajah jetty",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black26,
+                                      fontSize: 10),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
         ],
       ),
-    );
+    ));
   }
 }

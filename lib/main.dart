@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Mulish',
         primarySwatch: Colors.teal,
       ),
-      home: SafeArea(child: Home()),
+      home: const SafeArea(child:  Home()),
     );
   }
 }
