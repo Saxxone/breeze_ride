@@ -1,91 +1,81 @@
+import 'package:breeze_ride/controllers/bottom_bar_controller.dart';
+import 'package:breeze_ride/cruise_detail.dart';
 import 'package:breeze_ride/settings.dart';
 import 'package:breeze_ride/ticket.dart';
-import 'package:breeze_ride/cruise.dart';
-import 'package:breeze_ride/trip.dart';
+import 'package:breeze_ride/schedule_cruise.dart';
+import 'package:breeze_ride/schedule_trip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import 'home.dart';
 
-class Interstitial extends StatefulWidget {
-  final int index;
+class Interstitial extends StatelessWidget {
+  final BottomBarController bottomBarController =
+      Get.put(BottomBarController());
 
-  const Interstitial({Key? key, required this.index}) : super(key: key);
+  Interstitial({Key? key}) : super(key: key);
 
-  @override
-  _InterstitialState createState() => _InterstitialState();
-}
-
-class _InterstitialState extends State<Interstitial> {
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = widget.index;
     List<Widget> widgetOptions = <Widget>[
-      const Home(),
-      const Trip(),
-      const Cruise(),
+      Home(),
+      Trip(),
+      Cruise(),
       const Settings(),
-      const Ticket(),
+      Ticket(),
+      const CruiseDetail(),
     ];
 
-    void onTabTapped(index) {
-      setState(() {
-        selectedIndex = index;
-        if (selectedIndex == 0) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      widgetOptions.elementAt(selectedIndex)));
-        }
-      });
-    }
-
     return Scaffold(
-      body: widgetOptions.elementAt(selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-          elevation: 0,
-          selectedItemColor: Colors.tealAccent,
-          showSelectedLabels: false,
-          backgroundColor: Colors.black,
-          showUnselectedLabels: false,
-          onTap: onTabTapped,
-          type: BottomNavigationBarType.shifting,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/images/home-outline.svg",
-                  fit: BoxFit.fitWidth,
-                  width: 20,
-                ),
-                label: 'Home',
-                tooltip: 'Home'),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/images/boat-outline.svg",
-                  fit: BoxFit.fitWidth,
-                  width: 20,
-                ),
-                label: 'Cruise',
-                tooltip: 'Cruise'),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/images/planet-outline.svg",
-                  fit: BoxFit.fitWidth,
-                  width: 20,
-                ),
-                label: 'Cruise',
-                tooltip: 'Cruise'),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/images/settings-outline.svg",
-                fit: BoxFit.fitWidth,
-                width: 20,
-              ),
-              label: 'Settings',
-              tooltip: 'Settings',
-            ),
-          ]),
-    );
+        body:
+            Obx(() => widgetOptions.elementAt(bottomBarController.index.value)),
+        bottomNavigationBar: bottomBarController.index.value > 0
+            ? BottomNavigationBar(
+                elevation: 1,
+                selectedItemColor: Colors.tealAccent,
+                showSelectedLabels: false,
+                backgroundColor: Colors.black,
+                showUnselectedLabels: false,
+                onTap: (index) {
+                  bottomBarController.navigateToScreen(index);
+                },
+                type: BottomNavigationBarType.shifting,
+                items: <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                        icon: SvgPicture.asset(
+                          "assets/images/home-outline.svg",
+                          fit: BoxFit.fitWidth,
+                          width: 20,
+                        ),
+                        label: 'Home',
+                        tooltip: 'Home'),
+                    BottomNavigationBarItem(
+                        icon: SvgPicture.asset(
+                          "assets/images/boat-outline.svg",
+                          fit: BoxFit.fitWidth,
+                          width: 20,
+                        ),
+                        label: 'Trip',
+                        tooltip: 'Trip'),
+                    BottomNavigationBarItem(
+                        icon: SvgPicture.asset(
+                          "assets/images/planet-outline.svg",
+                          fit: BoxFit.fitWidth,
+                          width: 20,
+                        ),
+                        label: 'Cruise',
+                        tooltip: 'Cruise'),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        "assets/images/settings-outline.svg",
+                        fit: BoxFit.fitWidth,
+                        width: 20,
+                      ),
+                      label: 'Settings',
+                      tooltip: 'Settings',
+                    ),
+                  ])
+            : null);
   }
 }

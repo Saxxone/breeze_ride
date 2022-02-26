@@ -12,6 +12,7 @@ class _CruiseDetailState extends State<CruiseDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -33,11 +34,13 @@ class _CruiseDetailState extends State<CruiseDetail> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
+        child:
+        Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 70,),
               Text(
                 "Banana Boat",
                 style: TextStyle(fontWeight: FontWeight.w900, fontSize: 24),
@@ -118,6 +121,7 @@ class _CruiseDetailState extends State<CruiseDetail> {
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                   minWidth: MediaQuery.of(context).size.width,
                   onPressed: () {
+
                   },
                   child: const Text(
                     "Book",
@@ -142,8 +146,10 @@ class _CruiseDetailState extends State<CruiseDetail> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: SvgPicture.asset("assets/images/ticket-outline-white.svg", width: 20, fit: BoxFit.contain,)
+          onPressed: () {},
+          child: SvgPicture.asset(
+            "assets/images/ticket-outline-white.svg", width: 20,
+            fit: BoxFit.contain,)
       ),
     );
   }

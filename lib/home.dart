@@ -1,15 +1,17 @@
 import 'package:breeze_ride/interstitial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+import 'controllers/bottom_bar_controller.dart';
 
-  @override
-  _HomeState createState() => _HomeState();
-}
+class Home extends StatelessWidget {
+  final BottomBarController bottomBarController =
+      Get.put(BottomBarController());
 
-class _HomeState extends State<Home> {
+  Home({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +67,7 @@ class _HomeState extends State<Home> {
                   height: 20,
                 ),
                 Row(
-                  children:  [
+                  children: [
                     TextButton(
                       child: const Text(
                         "Trip",
@@ -74,11 +76,13 @@ class _HomeState extends State<Home> {
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.white24,
                           padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
-                          textStyle:
-                          const TextStyle(fontSize: 16)),
+                          textStyle: const TextStyle(fontSize: 16)),
                       onPressed: () {
+                        bottomBarController.navigateToScreen(1);
                         Navigator.push(
-                            context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 1)));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Interstitial()));
                       },
                     ),
                     const SizedBox(
@@ -92,11 +96,13 @@ class _HomeState extends State<Home> {
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.white24,
                           padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
-                          textStyle:
-                          const TextStyle(fontSize: 16)),
+                          textStyle: const TextStyle(fontSize: 16)),
                       onPressed: () {
+                        bottomBarController.navigateToScreen(2);
                         Navigator.push(
-                            context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 2)));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Interstitial()));
                       },
                     ),
                   ],
@@ -104,21 +110,27 @@ class _HomeState extends State<Home> {
                 const SizedBox(
                   height: 70,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      color: Colors.white54,
-                      onPressed: (){
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) =>  const Interstitial(index: 3)));
-                    }, icon: SvgPicture.asset(
-                      "assets/images/settings-outline-white.svg", fit: BoxFit.fitWidth,
-                  width: 20,
-                    ),)
-                  ],
-                )
+
               ],
+            ),
+          ),
+        ),
+        Positioned(
+          right: 10,
+          bottom: 10,
+          child: IconButton(
+            color: Colors.white54,
+            onPressed: () {
+              bottomBarController.navigateToScreen(3);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Interstitial()));
+            },
+            icon: SvgPicture.asset(
+              "assets/images/settings-outline-white.svg",
+              fit: BoxFit.fitWidth,
+              width: 20,
             ),
           ),
         )

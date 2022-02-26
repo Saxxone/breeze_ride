@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:intl/intl.dart';
 
-class Ticket extends StatefulWidget {
-  const Ticket({Key? key}) : super(key: key);
+import 'controllers/bottom_bar_controller.dart';
 
-  @override
-  _TicketState createState() => _TicketState();
-}
+class Ticket extends StatelessWidget {
+  final BottomBarController bottomBarController =
+      Get.put(BottomBarController());
+  Map<dynamic, dynamic> ticket = {};
 
-class _TicketState extends State<Ticket> {
+  Ticket({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ticket = bottomBarController.ticketData;
     return Center(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -28,7 +32,13 @@ class _TicketState extends State<Ticket> {
                   const SizedBox(
                     height: 50,
                   ),
-                  const Text("Boarding Pass", style: TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 20),),
+                  const Text(
+                    "Boarding Pass",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontSize: 20),
+                  ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(20, 20, 20, 3),
                     padding: const EdgeInsets.all(20),
@@ -50,7 +60,7 @@ class _TicketState extends State<Ticket> {
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/images/profile.jpg'),
+                                            'assets/images/profile.png'),
                                         fit: BoxFit.fill),
                                   )),
                               const SizedBox(
@@ -59,17 +69,19 @@ class _TicketState extends State<Ticket> {
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
+                                children:  [
                                   Text(
-                                    "Stephen Udoekpo",
-                                    style: TextStyle(fontWeight: FontWeight.w700),
+                                    "${ticket['passenger']!['first_name']} ${ticket['passenger']!['last_name']}",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Passenger",
-                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w300),
                                   ),
                                 ],
                               )
@@ -85,20 +97,20 @@ class _TicketState extends State<Ticket> {
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children:  [
                                 Text(
-                                  "CMS",
-                                  style: TextStyle(
+                                  "${ticket['from']}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w900,
                                       color: Colors.black87,
                                       fontSize: 20),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 2,
                                 ),
                                 Text(
-                                  "CMS Waterside",
-                                  style: TextStyle(
+                                  "${ticket['from_description']}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black26,
                                       fontSize: 10),
@@ -148,20 +160,20 @@ class _TicketState extends State<Ticket> {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children:  [
                                 Text(
-                                  "AJAH",
-                                  style: TextStyle(
+                                  "${ticket['to']}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w900,
                                       color: Colors.black87,
                                       fontSize: 20),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 2,
                                 ),
-                                Text(
-                                  "Ajah jetty",
-                                  style: TextStyle(
+                                 Text(
+                                   "${ticket['to_description']}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black26,
                                       fontSize: 10),
@@ -177,7 +189,8 @@ class _TicketState extends State<Ticket> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(14, 10, 14, 10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border:
@@ -208,9 +221,11 @@ class _TicketState extends State<Ticket> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  const Text(
-                                    "Feb. 14 2022",
-                                    style: TextStyle(
+                                   Text(
+                                       DateFormat('dd MMM yyyy')
+                                           .format(DateTime.parse(
+                                           ticket['departure_time'])),
+                                    style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w900,
                                         color: Colors.black87),
@@ -225,7 +240,9 @@ class _TicketState extends State<Ticket> {
                               width: 20,
                             ),
                             Container(
-                              padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                              width: 135,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border:
@@ -236,11 +253,9 @@ class _TicketState extends State<Ticket> {
                                 children: [
                                   SizedBox(
                                     height: 40,
-                                    child: Center(
-                                      child: SvgPicture.asset(
-                                        "assets/images/time-outline.svg",
-                                        width: 24,
-                                      ),
+                                    child: SvgPicture.asset(
+                                      "assets/images/time-outline.svg",
+                                      width: 24,
                                     ),
                                   ),
                                   const SizedBox(
@@ -256,9 +271,11 @@ class _TicketState extends State<Ticket> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  const Text(
-                                    "9:00 - 11:00",
-                                    style: TextStyle(
+                                   Text(
+                                    DateFormat('HH:mm a')
+                                        .format(DateTime.parse(
+                                        ticket['departure_time'])),
+                                    style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w900,
                                         color: Colors.black87),
@@ -293,7 +310,7 @@ class _TicketState extends State<Ticket> {
                                   height: 2,
                                 ),
                                 Text(
-                                  "B2",
+                                  "Any",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w900,
                                       color: Colors.black87,
@@ -303,20 +320,20 @@ class _TicketState extends State<Ticket> {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
+                              children:  [
+                                const Text(
                                   "Trip No.",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black26,
                                       fontSize: 12),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 2,
                                 ),
                                 Text(
-                                  "12A3B2",
-                                  style: TextStyle(
+                                  "${ticket['schedule_id']}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w900,
                                       color: Colors.black87,
                                       fontSize: 20),
@@ -341,7 +358,7 @@ class _TicketState extends State<Ticket> {
                         BarcodeWidget(
                           barcode: Barcode.code128(escapes: true),
                           // Barcode type and settings
-                          data: '12A3B2',
+                          data: "${ticket['schedule_id']}",
                           // Content
                           width: 400,
                           height: 100,
