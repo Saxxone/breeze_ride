@@ -10,6 +10,13 @@ class Login extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  void showErrorSnackBar(BuildContext context) {
+    const snackBar = SnackBar(
+      content: Text('Yay! A SnackBar!'),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     //email field
@@ -18,7 +25,17 @@ class Login extends StatelessWidget {
       autofillHints: const [AutofillHints.email],
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
-      // validator: () {},
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'This field is required';
+        }
+        if (!RegExp(r'\S+@\S+\.\S\S+').hasMatch(value.toLowerCase())) {
+          return "Please enter a valid email address";
+        }
+
+        // the email is valid
+        return null;
+      },
       onSaved: (value) {
         emailController.text = value!;
       },
@@ -37,7 +54,15 @@ class Login extends StatelessWidget {
       autofillHints: const [AutofillHints.password],
       controller: passwordController,
       obscureText: true,
-      // validator: () {},
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'This field is required';
+        }
+        if (value.length < 5 || value.isEmpty) {
+          return 'Invalid password';
+        }
+        return null;
+      },
       onSaved: (value) {
         passwordController.text = value!;
       },
@@ -94,51 +119,45 @@ class Login extends StatelessWidget {
                   height: 60,
                 ),
                 Material(
-                  elevation: 0,
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.teal,
-                  textStyle: const TextStyle(
-                    fontFamily: 'Mulish',
-                  ),
-                  child: MaterialButton(
-                      padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                      minWidth: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                      onPressed: () {
-                        print(userController.isLoading.value);
-                        userController.login({
-                          "email": emailController.text,
-                          "password": passwordController.text,
-                        });
-                      },
-                      child: GetBuilder<UserController>(
-                        builder: (_) {
-                          if (userController.isLoading.value) {
-                            return const SizedBox(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 3,
-                              ),
-                              height: 20,
-                              width: 20,
-                            );
-                          } else {
-                            return const Text(
-                              "Login",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  fontFamily: 'Mulish'),
-                            );
-                          }
+                    elevation: 0,
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.teal,
+                    textStyle: const TextStyle(
+                      fontFamily: 'Mulish',
+                    ),
+                    child: MaterialButton(
+                        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        minWidth: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
+                        onPressed: () {
+                          userController.login({
+                            "email": emailController.text,
+                            "password": passwordController.text,
+                          }, _formKey);
                         },
-                      )
-                  ),
-                ),
+                        child: Obx(
+                              () =>
+                          userController.isLoading.value
+                              ? const SizedBox(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 3,
+                            ),
+                            height: 20,
+                            width: 20,
+                          )
+                              : const Text(
+                            "Login",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                fontFamily: 'Mulish'),
+                          ),
+                        ))),
                 const SizedBox(
                   height: 24,
                 ),
@@ -167,7 +186,7 @@ class Login extends StatelessWidget {
                           ),
                         )),
                   ],
-                )
+                ),
               ],
             ),
           ),

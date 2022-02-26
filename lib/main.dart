@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Breeze Ride',
       theme: ThemeData(
         fontFamily: 'Mulish',

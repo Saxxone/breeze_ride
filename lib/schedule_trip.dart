@@ -11,7 +11,7 @@ import 'controllers/bottom_bar_controller.dart';
 
 class Trip extends StatelessWidget {
   final BottomBarController bottomBarController =
-  Get.put(BottomBarController());
+      Get.put(BottomBarController());
   final ScheduleController scheduleController = Get.put(ScheduleController());
   final UserController userController = Get.put(UserController());
   final TextEditingController startController = TextEditingController();
@@ -76,402 +76,384 @@ class Trip extends StatelessWidget {
     );
     return Scaffold(
         body: Stack(
+      children: [
+        Container(
+          color: Colors.teal,
+          height: 300,
+          width: MediaQuery.of(context).size.width,
+        ),
+        Column(
           children: [
-            Container(
-              color: Colors.teal,
-              height: 300,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+            const SizedBox(
+              height: 50,
             ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                const Text(
-                  "Book Trip",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      fontSize: 20),
-                ),
-                // Container(
-                //   margin: const EdgeInsets.fromLTRB(20, 20, 20, 3),
-                //   padding: const EdgeInsets.all(20),
-                //   decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(30)),
-                //   child: Column(
-                //     children: [
-                //       const SizedBox(
-                //         height: 15,
-                //       ),
-                //       startField,
-                //       const SizedBox(
-                //         height: 20,
-                //       ),
-                //       destinationField,
-                //       const SizedBox(
-                //         height: 20,
-                //       ),
-                //       Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //         children: [
-                //           Expanded(
-                //             child: Container(
-                //               padding: const EdgeInsets.fromLTRB(14, 10, 14,
-                //                   10),
-                //               decoration: BoxDecoration(
-                //                 borderRadius: BorderRadius.circular(10),
-                //                 border: Border.all(
-                //                     color: Colors.black12, width: 1),
-                //               ),
-                //               child: Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: const [
-                //                   Text(
-                //                     "Departure",
-                //                     style: TextStyle(
-                //                         fontSize: 16,
-                //                         fontWeight: FontWeight.w300,
-                //                         color: Colors.black45),
-                //                   ),
-                //                   SizedBox(
-                //                     height: 5,
-                //                   ),
-                //                   Text(
-                //                     "09:00 am",
-                //                     style: TextStyle(
-                //                         fontSize: 16,
-                //                         fontWeight: FontWeight.w900,
-                //                         color: Colors.black87),
-                //                   ),
-                //                   SizedBox(
-                //                     height: 5,
-                //                   ),
-                //                 ],
-                //               ),
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             width: 20,
-                //           ),
-                //           Expanded(
-                //             child: Container(
-                //               padding: const EdgeInsets.fromLTRB(14, 10, 14,
-                //                   10),
-                //               decoration: BoxDecoration(
-                //                 borderRadius: BorderRadius.circular(10),
-                //                 border: Border.all(
-                //                     color: Colors.black12, width: 1),
-                //               ),
-                //               child: Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: const [
-                //                   Text(
-                //                     "Arrival",
-                //                     style: TextStyle(
-                //                         fontSize: 16,
-                //                         fontWeight: FontWeight.w300,
-                //                         color: Colors.black45),
-                //                   ),
-                //                   SizedBox(
-                //                     height: 5,
-                //                   ),
-                //                   Text(
-                //                     "11:00 am",
-                //                     style: TextStyle(
-                //                         fontSize: 16,
-                //                         fontWeight: FontWeight.w900,
-                //                         color: Colors.black87),
-                //                   ),
-                //                   SizedBox(
-                //                     height: 5,
-                //                   ),
-                //                 ],
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //       const SizedBox(
-                //         height: 20,
-                //       ),
-                //       Material(
-                //         elevation: 0,
-                //         borderRadius: BorderRadius.circular(10),
-                //         color: Colors.black87,
-                //         textStyle: const TextStyle(
-                //           fontFamily: 'Mulish',
-                //         ),
-                //         child: MaterialButton(
-                //           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                //           minWidth: MediaQuery
-                //               .of(context)
-                //               .size
-                //               .width,
-                //           onPressed: () {
-                //             bottomBarController.navigateToScreen(4);
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) => Interstitial()));
-                //           },
-                //           child: const Text(
-                //             "Book",
-                //             textAlign: TextAlign.center,
-                //             style: TextStyle(
-                //                 color: Colors.white,
-                //                 fontWeight: FontWeight.bold,
-                //                 fontSize: 20,
-                //                 fontFamily: 'Mulish'),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                SingleChildScrollView(
-                  child: FutureBuilder<List>(
-                    future: schedule,
-                    builder:
-                        (BuildContext context, AsyncSnapshot<List> snapshot) {
-                      if (snapshot.hasData) {
-                        return RefreshIndicator(
-                          onRefresh: () {
-                            return scheduleController.getSchedules();
-                          },
-                          child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: snapshot.data?.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    makeBooking(snapshot.data![index]);
-                                  },
-                                  child: Container(
-                                    margin:
+            const Text(
+              "Book Trip",
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  fontSize: 20),
+            ),
+            Container(
+              margin: const EdgeInsets.fromLTRB(20, 20, 20, 3),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(30)),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  startField,
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  destinationField,
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.black12, width: 1),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "Departure",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.black45),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "09:00 am",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.black87),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.black12, width: 1),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "Arrival",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.black45),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "11:00 am",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.black87),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Material(
+                    elevation: 0,
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.black87,
+                    textStyle: const TextStyle(
+                      fontFamily: 'Mulish',
+                    ),
+                    child: MaterialButton(
+                      padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      minWidth: MediaQuery.of(context).size.width,
+                      onPressed: () {
+                        bottomBarController.navigateToScreen(4);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Interstitial()));
+                      },
+                      child: const Text(
+                        "Book",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontFamily: 'Mulish'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SingleChildScrollView(
+              child: FutureBuilder<List>(
+                future: schedule,
+                builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+                  if (snapshot.hasData) {
+                    return RefreshIndicator(
+                      onRefresh: () {
+                        return scheduleController.getSchedules();
+                      },
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                makeBooking(snapshot.data![index]);
+                              },
+                              child: Container(
+                                margin:
                                     const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                    padding: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.cyan[50],
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          child: Row(
+                                            children: [
+                                              SizedBox(
+                                                height: 14,
+                                                child: Center(
+                                                  child: SvgPicture.asset(
+                                                    "assets/images/calendar-outline.svg",
+                                                    width: 24,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(DateFormat('dd MMM yyyy')
+                                                  .format(DateTime.parse(
+                                                      snapshot.data![index]
+                                                          ['departure_time'])))
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.cyan[50],
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          child: Row(
+                                            children: [
+                                              SizedBox(
+                                                height: 14,
+                                                child: Center(
+                                                  child: SvgPicture.asset(
+                                                    "assets/images/time-outline.svg",
+                                                    width: 24,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(DateFormat('HH:mm a').format(
+                                                  DateTime.parse(
+                                                      snapshot.data![index]
+                                                          ['departure_time'])))
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Divider(
+                                      height: 60,
+                                      thickness: 1,
+                                      color: Colors.black12,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              padding: const EdgeInsets.all(
-                                                  10),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.cyan[50],
-                                                  borderRadius:
-                                                  BorderRadius.circular(30)),
-                                              child: Row(
-                                                children: [
-                                                  SizedBox(
-                                                    height: 14,
-                                                    child: Center(
-                                                      child: SvgPicture.asset(
-                                                        "assets/images/calendar-outline.svg",
-                                                        width: 24,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(DateFormat(
-                                                      'dd MMM yyyy')
-                                                      .format(DateTime.parse(
-                                                      snapshot.data![index][
-                                                      'departure_time'])))
-                                                ],
-                                              ),
+                                            Text(
+                                              snapshot.data![index]['from'],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w900,
+                                                  color: Colors.black87,
+                                                  fontSize: 20),
                                             ),
-                                            Container(
-                                              padding: const EdgeInsets.all(
-                                                  10),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.cyan[50],
-                                                  borderRadius:
-                                                  BorderRadius.circular(30)),
-                                              child: Row(
-                                                children: [
-                                                  SizedBox(
-                                                    height: 14,
-                                                    child: Center(
-                                                      child: SvgPicture.asset(
-                                                        "assets/images/time-outline.svg",
-                                                        width: 24,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text(DateFormat('HH:mm a')
-                                                      .format(DateTime.parse(
-                                                      snapshot.data![index][
-                                                      'departure_time'])))
-                                                ],
-                                              ),
+                                            const SizedBox(
+                                              height: 2,
                                             ),
+                                            Text(
+                                              snapshot.data![index]
+                                                  ['from_description'],
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.black26,
+                                                  fontSize: 10),
+                                            )
                                           ],
                                         ),
-                                        const Divider(
-                                          height: 60,
-                                          thickness: 1,
-                                          color: Colors.black12,
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                        Stack(
                                           children: [
                                             Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  snapshot
-                                                      .data![index]['from'],
-                                                  style: const TextStyle(
-                                                      fontWeight: FontWeight
-                                                          .w900,
-                                                      color: Colors.black87,
-                                                      fontSize: 20),
-                                                ),
-                                                const SizedBox(
-                                                  height: 2,
-                                                ),
-                                                Text(
-                                                  snapshot.data![index]
-                                                  ['from_description'],
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight
-                                                          .w700,
-                                                      color: Colors.black26,
-                                                      fontSize: 10),
-                                                )
-                                              ],
-                                            ),
-                                            Stack(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
+                                              mainAxisAlignment:
                                                   MainAxisAlignment.center,
-                                                  crossAxisAlignment:
+                                              crossAxisAlignment:
                                                   CrossAxisAlignment.center,
-                                                  children: const [
-                                                    SizedBox(
-                                                      width: 100,
-                                                      height: 40,
-                                                      child: Center(
-                                                        child: Divider(
-                                                          thickness: 1,
-                                                          color: Colors
-                                                              .black12,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                              children: const [
                                                 SizedBox(
                                                   width: 100,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      Container(
-                                                        height: 40,
-                                                        width: 40,
-                                                        decoration:
-                                                        const BoxDecoration(
-                                                            shape: BoxShape
-                                                                .circle,
-                                                            color:
-                                                            Colors.teal),
-                                                        child: Center(
-                                                          child: Image.asset(
-                                                            "assets/images/motor-powered-boat.png",
-                                                            width: 24,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                  height: 40,
+                                                  child: Center(
+                                                    child: Divider(
+                                                      thickness: 1,
+                                                      color: Colors.black12,
+                                                    ),
                                                   ),
-                                                )
+                                                ),
                                               ],
                                             ),
-                                            Column(
-                                              crossAxisAlignment:
+                                            SizedBox(
+                                              width: 100,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            color: Colors.teal),
+                                                    child: Center(
+                                                      child: Image.asset(
+                                                        "assets/images/motor-powered-boat.png",
+                                                        width: 24,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  snapshot.data![index]['to'],
-                                                  style: const TextStyle(
-                                                      fontWeight: FontWeight
-                                                          .w900,
-                                                      color: Colors.black87,
-                                                      fontSize: 20),
-                                                ),
-                                                const SizedBox(
-                                                  height: 2,
-                                                ),
-                                                Text(
-                                                  snapshot.data![index]
-                                                  ['to_description'],
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight
-                                                          .w700,
-                                                      color: Colors.black26,
-                                                      fontSize: 10),
-                                                )
-                                              ],
+                                          children: [
+                                            Text(
+                                              snapshot.data![index]['to'],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w900,
+                                                  color: Colors.black87,
+                                                  fontSize: 20),
                                             ),
+                                            const SizedBox(
+                                              height: 2,
+                                            ),
+                                            Text(
+                                              snapshot.data![index]
+                                                  ['to_description'],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.black26,
+                                                  fontSize: 10),
+                                            )
                                           ],
                                         ),
                                       ],
                                     ),
-                                  ),
-                                );
-                              }),
-                        );
-                      } else if (snapshot.hasError) {
-                        print("Error is ${snapshot.error}");
-                        return const Center(
-                          child: Text("An error occurred"),
-                        );
-                      }
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 140,
-                              child: Image.asset(
-                                  "assets/images/nothing-to-show.jpg",
-                                  fit: BoxFit.contain),
-                            ),
-                            const Text(
-                                "You haven't made any transactions yet")
-                          ],
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    );
+                  } else if (snapshot.hasError) {
+                    var snackBar = SnackBar(
+                        content: const Text('An error occurred'),
+                        action: SnackBarAction(
+                          label: 'Reload',
+                          onPressed: () {
+                            scheduleController.getSchedules();
+                          },
+                        ));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 140,
+                          child: Image.asset(
+                              "assets/images/nothing-to-show.jpg",
+                              fit: BoxFit.contain),
                         ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
+                        const Text("You haven't made any transactions yet")
+                      ],
+                    ),
+                  );
+                },
+              ),
+            )
           ],
-        ));
+        ),
+      ],
+    ));
   }
 }
